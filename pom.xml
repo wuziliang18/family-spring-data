@@ -16,6 +16,8 @@
 		<redis_version>2.4.2</redis_version>
 		<spring_data_redis_version>1.2.1.RELEASE</spring_data_redis_version>
 		<fastjson_version>1.1.39</fastjson_version>
+		<log4j_version>1.2.16</log4j_version>
+		<slf4j_version>1.7.7</slf4j_version>
 	</properties>
 
 	<modules>
