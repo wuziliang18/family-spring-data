@@ -1,17 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.family</groupId>
-  <artifactId>family-spring-data</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+	<groupId>com.family</groupId>
+	<artifactId>family-spring-data</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-  <name>family-spring-data</name>
-  <url>http://maven.apache.org</url>
+	<name>family-spring-data</name>
+	<url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring_version>3.1.2.RELEASE</spring_version>
+		<redis_version>2.4.2</redis_version>
+		<spring_data_redis_version>1.2.1.RELEASE</spring_data_redis_version>
+		<fastjson_version>1.1.39</fastjson_version>
+	</properties>
 
+	<modules>
+		<module>family-spring-data-redis</module>
+	</modules>
 </project>
