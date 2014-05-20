@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:redis="http://www.springframework.org/schema/redis"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context  
+		http://www.springframework.org/schema/context/spring-context.xsd  
+		http://www.springframework.org/schema/redis  
+		http://www.springframework.org/schema/redis/spring-redis.xsd ">
+	<!-- 消费者配置 -->
+	<import resource="app-context.xml" />
+	<bean id="topcMessageListener" class="org.family.spring.data.redis.sub.TopicMessageListener" />
+	<bean id="jdkSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />  
+	<!-- 可以配置定时其task-executor -->
+	<redis:listener-container connection-factory="redisConnectionFactory" >
+		<!-- *是全部 不支持,分割 -->
+		<redis:listener ref="topcMessageListener" serializer="jdkSerializer"  topic="c*1"/>
+	</redis:listener-container>
+</beans>
