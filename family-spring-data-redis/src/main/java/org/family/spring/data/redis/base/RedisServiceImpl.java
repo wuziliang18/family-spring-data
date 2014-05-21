@@ -17,8 +17,8 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
 
@@ -30,7 +30,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  */
 public class RedisServiceImpl implements IRedisService {
 	@Resource
-	private RedisTemplate<Serializable, Serializable> redisTemplate;
+	private StringRedisTemplate redisTemplate;
 
 	private RedisSerializer<String> getRedisSerializer() {
 		return redisTemplate.getStringSerializer();
@@ -234,7 +234,30 @@ public class RedisServiceImpl implements IRedisService {
 		}
 		redisTemplate.delete(keys);
 	}
-
+	/**
+	 * 入队列
+	 * @param key
+	 * @param value
+	 */
+	public void inQuere(String key, String value){
+		redisTemplate.opsForList().rightPush(key, value);  
+	}
+	/**
+	 * 入队列
+	 * @param key
+	 * @param value
+	 */
+	public void inQuere(String key, Object value){
+		redisTemplate.opsForList().rightPush(key, RedisUtil.getJsonFromObject(value));  
+	}
+	/**
+	 * 出队列为一个字符串
+	 * @param key
+	 * @return
+	 */
+	public String outQueue(final String key){
+		return redisTemplate.opsForList().leftPop(key);
+	}
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "app-context.xml" });

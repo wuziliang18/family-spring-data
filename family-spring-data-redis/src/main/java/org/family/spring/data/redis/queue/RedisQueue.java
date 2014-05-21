@@ -163,7 +163,7 @@ public class RedisQueue<T> implements InitializingBean,DisposableBean{
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:app-redis-queue.xml");  
         RedisQueue<String> redisQueue = (RedisQueue)context.getBean("jedisQueue");  
         while(true){
-        	
+        	//一直阻塞等待
         }
     }
 }
