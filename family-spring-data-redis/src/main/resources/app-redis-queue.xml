@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+	<!-- 消息队列监听配置 -->
+	<import resource="app-context.xml" />
+	<bean id="jedisQueueListener" class="org.family.spring.data.redis.queue.QueueListener" />
+	<bean id="jedisQueue" class="org.family.spring.data.redis.queue.RedisQueue" destroy-method="destroy">
+		<property name="redisTemplate" ref="redisTemplate"></property>
+		<property name="key" value="user:queue"></property>
+		<property name="listener" ref="jedisQueueListener"></property>
+	</bean>
+
+</beans>
