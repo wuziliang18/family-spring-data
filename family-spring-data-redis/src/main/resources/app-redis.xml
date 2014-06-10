@@ -20,4 +20,5 @@
 		<property name="connectionFactory" ref="redisConnectionFactory" />
 	</bean>
 	<bean id="redisService" class="org.family.spring.data.redis.base.RedisServiceImpl" />
+	<bean id="redisHashService" class="org.family.spring.data.redis.base.RedisHashServiceImpl" />
 </beans>
