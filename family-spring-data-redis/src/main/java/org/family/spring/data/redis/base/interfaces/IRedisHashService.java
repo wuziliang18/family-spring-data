@@ -14,17 +14,18 @@ public interface IRedisHashService {
 	 * @param value
 	 *            对象值
 	 */
-	public boolean hset( String key,  String field,  Object value);
+	public boolean hset(String key, String field, Object value);
 
 	/**
 	 * 从一个hash中获取对象
+	 * 
 	 * @param <T>
 	 * @param key
 	 * @param field
 	 * @param clazz
 	 * @return
 	 */
-	public <T> T hget( String key,  String field,  Class<T> clazz);
+	public <T> T hget(String key, String field, Class<T> clazz);
 
 	/**
 	 * 获取hash中的数据个数
@@ -32,7 +33,7 @@ public interface IRedisHashService {
 	 * @param key
 	 * @return
 	 */
-	public Long hlen( String key);
+	public Long hlen(String key);
 
 	/**
 	 * 删除一个hash中的field
@@ -40,7 +41,7 @@ public interface IRedisHashService {
 	 * @param key
 	 * @param field
 	 */
-	public boolean hdel( String key,  String field);
+	public boolean hdel(String key, String field);
 
 	/**
 	 * 判断hash中field是否存在
@@ -49,7 +50,7 @@ public interface IRedisHashService {
 	 * @param field
 	 * @return
 	 */
-	public boolean hexists( String key,  String field);
+	public boolean hexists(String key, String field);
 
 	/**
 	 * 获取所有field
@@ -57,7 +58,7 @@ public interface IRedisHashService {
 	 * @param key
 	 * @return
 	 */
-	public Set<String>  hkeys( String key);
+	public Set<String> hkeys(String key);
 
 	/**
 	 * 获取全部的filed及value
@@ -65,5 +66,14 @@ public interface IRedisHashService {
 	 * @param key
 	 * @return
 	 */
-	public <T> Map<String, T> hgetall( String key,Class<T> clazz);
+	public <T> Map<String, T> hgetall(String key, Class<T> clazz);
+
+	/**
+	 * 批量插入到redis的hash中 
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	public boolean hset(String key, Map<String, Object> value);
 }

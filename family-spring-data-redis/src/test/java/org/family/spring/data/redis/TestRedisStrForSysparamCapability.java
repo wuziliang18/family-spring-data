@@ -18,7 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * 
  */
 public class TestRedisStrForSysparamCapability {
-	private static int count = 10000;
+	private static int count = 1000000;
 
 	public static void insert(RedisServiceImpl redisServer) {
 		// 模拟插入编码表数据
@@ -54,14 +54,14 @@ public class TestRedisStrForSysparamCapability {
 		context.start();
 		RedisServiceImpl redisServer = context.getBean(RedisServiceImpl.class);
 		System.out.println("加载完毕");
-		insert(redisServer);
+//		insert(redisServer);
 //		System.out.println(redisServer.get("param_str"));
 		//开始查询某个
 		Date begin = new Date();
 		List<Map> result=new ArrayList<Map>();
 		List<Map> rows=redisServer.get("param_str",List.class);
 		for(Map dto:rows){
-			if(dto.get("param").equals("param500")){
+			if(dto.get("param").equals("param25000")){
 				result.add(dto);
 			}
 		}
