@@ -55,6 +55,9 @@ public class RedisHashServiceImpl implements IRedisHashService {
 			public T doInRedis(RedisConnection connection)
 					throws DataAccessException {
 				byte[] value = connection.hGet( getRedisSerializer().serialize(key), getRedisSerializer().serialize(field));
+				if(value==null){
+					return null;
+				}
 				return RedisUtil.getObjectFromBytes(value, clazz);
 			}
 		});
