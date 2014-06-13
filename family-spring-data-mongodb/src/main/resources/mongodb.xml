@@ -11,7 +11,8 @@
   	<constructor-arg name="mongo" ref="mongo"/>
   	<constructor-arg name="databaseName" value="database"/>
   </bean>
-  
+  <!-- 映射转换器，扫描back-package目录下的文件，根据注释，把它们作为mongodb的一个collection的映射 -->
+  <mongo:mapping-converter base-package="org.family.spring.data.mongodb.bean"/>
   
   <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
