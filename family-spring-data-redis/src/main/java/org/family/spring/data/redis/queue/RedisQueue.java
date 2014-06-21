@@ -24,7 +24,7 @@ public class RedisQueue<T> implements InitializingBean,DisposableBean{
     private RedisConnection connection;//for blocking  
     private BoundListOperations<String, T> listOperations;//noblocking  
       
-    private Lock lock = new ReentrantLock();//基于底层IO阻塞考虑  
+    private Lock lock = new ReentrantLock();//基于底层IO阻塞考虑   取代synchronized 
       
     private IRedisQueueListener listener;//异步回调  
     private Thread listenerThread;  
@@ -88,7 +88,7 @@ public class RedisQueue<T> implements InitializingBean,DisposableBean{
     }  
       
     /** 
-     * noblocking 
+     * noblocking 非阻塞
      * @return null if no item in queue 
      */  
     public T removeFromHead(){  
@@ -100,7 +100,7 @@ public class RedisQueue<T> implements InitializingBean,DisposableBean{
     }  
       
     /** 
-     * blocking 
+     * blocking 阻塞
      * remove and get first item from queue:BLPOP 
      * @return 
      */  
