@@ -268,9 +268,6 @@ public class RedisServiceImpl implements IRedisService {
 		if (patternKey == null) {
 			throw new RuntimeException("key不可以是null");
 		}
-		if(patternKey.indexOf("*")<0){
-			throw new RuntimeException("没有通配符*");
-		}
 		Set<String> keys=redisTemplate.keys(patternKey);
 		if(!keys.isEmpty()){
 			redisTemplate.delete(keys);
