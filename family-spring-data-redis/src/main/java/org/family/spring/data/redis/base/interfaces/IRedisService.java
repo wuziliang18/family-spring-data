@@ -103,4 +103,11 @@ public interface IRedisService {
 	 * @return
 	 */
 	public String outQueue(final String key); 
+	
+	/**
+	 * 正则删除
+	 * 
+	 * @param key
+	 */
+	public void deletePattern(String key);
 }

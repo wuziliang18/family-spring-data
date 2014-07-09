@@ -4,6 +4,7 @@ package org.family.spring.data.redis.base;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -258,55 +259,73 @@ public class RedisServiceImpl implements IRedisService {
 	public String outQueue(final String key){
 		return redisTemplate.opsForList().leftPop(key);
 	}
+	/**
+	 * 正则删除
+	 * 
+	 * @param key
+	 */
+	public void deletePattern(String patternKey){
+		if (patternKey == null) {
+			throw new RuntimeException("key不可以是null");
+		}
+		if(patternKey.indexOf("*")<0){
+			throw new RuntimeException("没有通配符*");
+		}
+		Set<String> keys=redisTemplate.keys(patternKey);
+		if(!keys.isEmpty()){
+			redisTemplate.delete(keys);
+		}
+	}
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "app-context.xml" });
 		context.start();
 		System.out.println("加载完毕");
 		RedisServiceImpl redisServer = context.getBean(RedisServiceImpl.class);
-		// //测试批量删除
-		// List delKeys=new ArrayList();
-		// delKeys.add("test");
-		// delKeys.add("test1");
-		// redisServer.delete(delKeys);
-		// 测试保存时间
-		redisServer.set("time", "hava", 10);
-		// 测试批量添加
-		List<SaveRedisBean> rows = new ArrayList<SaveRedisBean>();
-		TestBean user = new TestBean();
-		SaveRedisBean bean = new SaveRedisBean();
-		bean.setKey("0");
-		bean.setValue(user);
-		user.setName("密码111");
-		rows.add(bean);
-		// 测试事务
-		// bean=new SaveRedisBean();
-		// bean.setKey(null);
-		// rows.add(bean);
-		user = new TestBean();
-		bean = new SaveRedisBean();
-		bean.setKey("6");
-		bean.setValue(user);
-		user.setName("密码66");
-		rows.add(bean);
-		user = new TestBean();
-		bean = new SaveRedisBean();
-		bean.setKey("7");
-		bean.setValue(user);
-		user.setName("密码33");
-		rows.add(bean);
-		redisServer.set(rows);
-		// 测试单个删除
-		// redisServer.delete("test");
-		user = new TestBean();
-		user.setName("密码111");
-		System.out.println(redisServer.set("test", user));
-		;
-		System.out.println(redisServer.set("", new Object()));
-		;
-		// System.out.println(redisServer.get(null));;
-		TestBean userSearch = redisServer.get("test", TestBean.class);
-		System.out.println(userSearch.getName());
-		System.out.println(redisServer.get("test"));
+//		// //测试批量删除
+//		// List delKeys=new ArrayList();
+//		// delKeys.add("test");
+//		// delKeys.add("test1");
+//		// redisServer.delete(delKeys);
+//		// 测试保存时间
+//		redisServer.set("time", "hava", 10);
+//		// 测试批量添加
+//		List<SaveRedisBean> rows = new ArrayList<SaveRedisBean>();
+//		TestBean user = new TestBean();
+//		SaveRedisBean bean = new SaveRedisBean();
+//		bean.setKey("0");
+//		bean.setValue(user);
+//		user.setName("密码111");
+//		rows.add(bean);
+//		// 测试事务
+//		// bean=new SaveRedisBean();
+//		// bean.setKey(null);
+//		// rows.add(bean);
+//		user = new TestBean();ch
+//		bean = new SaveRedisBean();
+//		bean.setKey("6");
+//		bean.setValue(user);
+//		user.setName("密码66");
+//		rows.add(bean);
+//		user = new TestBean();
+//		bean = new SaveRedisBean();
+//		bean.setKey("7");
+//		bean.setValue(user);
+//		user.setName("密码33");
+//		rows.add(bean);
+//		redisServer.set(rows);
+//		// 测试单个删除
+//		// redisServer.delete("test");
+//		user = new TestBean();
+//		user.setName("密码111");
+//		System.out.println(redisServer.set("test", user));
+//		;
+//		System.out.println(redisServer.set("", new Object()));
+//		;
+//		// System.out.println(redisServer.get(null));;
+//		TestBean userSearch = redisServer.get("test", TestBean.class);
+//		System.out.println(userSearch.getName());
+//		System.out.println(redisServer.get("test"));
+		redisServer.deletePattern("*cache*");
 	}
 }
