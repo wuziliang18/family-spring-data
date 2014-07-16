@@ -290,6 +290,23 @@ public class RedisServiceImpl implements IRedisService {
 		}
 	}
 
+	/**
+	 * 根据正则获取列表值
+	 * 
+	 * @param patternKey
+	 * @param clazz
+	 * @return
+	 */
+	public <T> List<T> getValueListByPatternKey(final String patternKey,
+			final Class<T> clazz) {
+		List<T> rows = new ArrayList<T>();
+		Set<String> failSet = this.keys(patternKey);
+		for (String key : failSet) {
+			rows.add(get(key, clazz));
+		}
+		return rows;
+	}
+
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 				new String[] { "app-context.xml" });

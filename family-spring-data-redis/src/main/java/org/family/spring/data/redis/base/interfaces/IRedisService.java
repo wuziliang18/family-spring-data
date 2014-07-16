@@ -123,4 +123,14 @@ public interface IRedisService {
 	 * @param key
 	 */
 	public void deletePattern(String key);
+	
+	/**
+	 * 根据正则获取列表值
+	 * 
+	 * @param patternKey
+	 * @param clazz
+	 * @return
+	 */
+	public <T> List<T> getValueListByPatternKey(final String patternKey,
+			final Class<T> clazz);
 }
