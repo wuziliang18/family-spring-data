@@ -1,10 +1,9 @@
 package org.family.spring.data.redis.base.interfaces;
 
-
 import java.util.List;
+import java.util.Set;
 
 import org.family.spring.data.redis.support.SaveRedisBean;
-
 
 public interface IRedisService {
 	/**
@@ -85,25 +84,39 @@ public interface IRedisService {
 	 * @param keys
 	 */
 	public void delete(List keys);
+
 	/**
 	 * 入队列
+	 * 
 	 * @param key
 	 * @param value
 	 */
 	public void inQuere(String key, String value);
+
 	/**
 	 * 入队列
+	 * 
 	 * @param key
 	 * @param value
 	 */
 	public void inQuere(String key, Object value);
+
 	/**
 	 * 出队列为一个字符串
+	 * 
 	 * @param key
 	 * @return
 	 */
-	public String outQueue(final String key); 
-	
+	public String outQueue(final String key);
+
+	/**
+	 * 获取key 支持正则
+	 * 
+	 * @param patternKey
+	 * @return
+	 */
+	public Set<String> keys(String patternKey);
+
 	/**
 	 * 正则删除
 	 * 
